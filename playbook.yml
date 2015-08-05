@@ -2,9 +2,14 @@
 
 - hosts: all
   sudo: true
+  vars:
+    document_root: /vagrant
   tasks:
     - name: update apt cache
       apt: update_cache=yes
     - include: tasks/apache.yml
     - include: tasks/mysql.yml
     - include: tasks/php.yml
+    - name: reload apache
+      service: name=apache2 state=reloaded
+
